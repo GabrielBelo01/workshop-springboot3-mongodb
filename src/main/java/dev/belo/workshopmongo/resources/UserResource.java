@@ -1,5 +1,6 @@
 package dev.belo.workshopmongo.resources;
 
+import dev.belo.workshopmongo.domain.Post;
 import dev.belo.workshopmongo.domain.User;
 import dev.belo.workshopmongo.dto.UserDTO;
 import dev.belo.workshopmongo.services.UserService;
@@ -33,6 +34,12 @@ public class UserResource {
         User obj = service.findById(id);
 
         return ResponseEntity.ok().body(new UserDTO(obj));
+    }
+
+    @GetMapping(value = "/{id}/{posts}")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id){
+        User obj = service.findById(id);
+        return ResponseEntity.ok().body(obj.getPosts());
     }
 
     @PostMapping
